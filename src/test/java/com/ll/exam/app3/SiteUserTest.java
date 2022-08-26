@@ -17,11 +17,13 @@ public class SiteUserTest {
     @Test
     public void createUserTest() {
         for(int i = 0; i < 5; i++) {
-            SiteUser siteUser = new SiteUser();
-            siteUser.setUsername("박다정"+(i+1));
-            siteUser.setPassword("1234");
-            siteUser.setEmail("test%d.com".formatted(i+1));
-            siteUserRepository.save(siteUser);
+            SiteUser user = SiteUser.builder()
+                    .username("박다정"+(i+1))
+                    .email("test%d.com".formatted(i+1))
+                    .password("1234")
+                    .build();
+
+            siteUserRepository.save(user);
         }
 
     }
