@@ -6,4 +6,6 @@ public interface UserRepositoryCustom {
     SiteUser getQslUser(Long id);
 
     Long getQslCount();
+
+    SiteUser getQslUserOrderByIdAscLimit1();
 }
