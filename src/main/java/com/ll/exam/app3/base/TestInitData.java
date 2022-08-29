@@ -8,12 +8,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.CommandLinePropertySource;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Configuration
 @Profile("test")
 public class TestInitData {
 
     @Bean
     CommandLineRunner init(UserRepository userRepository) {
+
         return args -> {
             for(int i = 0; i < 5; i++) {
                 SiteUser user = SiteUser.builder()

@@ -4,4 +4,6 @@ import com.ll.exam.app3.entity.SiteUser;
 
 public interface UserRepositoryCustom {
     SiteUser getQslUser(Long id);
+
+    Long getQslCount();
 }
