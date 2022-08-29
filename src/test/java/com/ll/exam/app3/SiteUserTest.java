@@ -10,6 +10,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest// 이렇게 클래스 @Transactional를 붙이면, 클래스의 각 테스트케이스에 전부 @Transactional 붙은 것과 동일
@@ -54,5 +56,13 @@ public class SiteUserTest {
     void t4(){
         SiteUser siteUser = siteUserRepository.getQslUserOrderByIdAscLimit1();
         assertThat(siteUser.getId()).isEqualTo(1L);
+    }
+
+    @Test
+    @DisplayName("전체회원, 오래된순")
+    void t5(){
+        List<SiteUser> siteUser = siteUserRepository.getQslUsersOrderByIdAsc();
+        assertThat(siteUser.get(0).getId()).isEqualTo(1L);
+        assertThat(siteUser.get(1).getId()).isEqualTo(2L);
     }
 }
