@@ -16,15 +16,15 @@ public class SiteUserTest {
 
     @Test
     public void createUserTest() {
-        for(int i = 0; i < 5; i++) {
+//        for(int i = 0; i < 5; i++) {
             SiteUser user = SiteUser.builder()
-                    .username("박다정"+(i+1))
-                    .email("test%d.com".formatted(i+1))
+                    .username("박다정")
+                    .email("dajung.com")
                     .password("1234")
                     .build();
 
             siteUserRepository.save(user);
-        }
+//        }
 
     }
 
