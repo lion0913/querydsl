@@ -137,4 +137,13 @@ public class SiteUserTest {
         assertThat(userList.size()).isEqualTo(1);
         assertThat(userList.get(0).getUsername()).isEqualTo("user1");
     }
+
+    @Test
+    @DisplayName("no qsl")
+    void t12() {
+        List<SiteUser> users = siteUserRepository.findByInterestKeyword_content("축구");
+
+        assertThat(users.size()).isEqualTo(1);
+        assertThat(users.get(0).getUsername()).isEqualTo("user1");
+    }
 }

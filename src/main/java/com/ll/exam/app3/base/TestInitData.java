@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.CommandLinePropertySource;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,19 +22,6 @@ public class TestInitData {
     CommandLineRunner init(UserRepository userRepository) {
 
         return args -> {
-//            for(int i = 0; i < 5; i++) {
-//                SiteUser user = SiteUser.builder()
-//                        .username("박다정"+(i+1))
-//                        .email("test%d.com".formatted(i+1))
-//                        .password("1234")
-//                        .build();
-//
-//                user.addInterestKeywordContent("축구");
-//                user.addInterestKeywordContent("농구");
-//                user.addInterestKeywordContent("클라이밍");
-//
-//                userRepository.save(user);
-//            }
             SiteUser u1 = SiteUser.builder()
                     .username("user1")
                     .password("{noop}1234")
@@ -46,11 +36,13 @@ public class TestInitData {
 
             u1.addInterestKeywordContent("축구");
             u1.addInterestKeywordContent("농구");
+            userRepository.saveAndFlush(u1);
 
+            u2.addInterestKeywordContent("농구");
             u2.addInterestKeywordContent("클라이밍");
             u2.addInterestKeywordContent("마라톤");
 
-            userRepository.saveAll(Arrays.asList(u1, u2));
+            userRepository.saveAndFlush(u2);
         };
     }
 }
