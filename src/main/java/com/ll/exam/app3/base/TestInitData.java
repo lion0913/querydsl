@@ -26,6 +26,10 @@ public class TestInitData {
                         .password("1234")
                         .build();
 
+                user.addInterestKeywordContent("축구");
+                user.addInterestKeywordContent("농구");
+                user.addInterestKeywordContent("클라이밍");
+
                 userRepository.save(user);
             }
         };
