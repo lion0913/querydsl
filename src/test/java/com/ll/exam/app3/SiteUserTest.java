@@ -128,4 +128,13 @@ public class SiteUserTest {
         // 중간테이블도 생성되어야 함, 힌트 : @ManyToMany
         // interest_keyword 테이블에 축구, 롤, 헬스에 해당하는 row 3개 생성
     }
+
+    @Test
+    @DisplayName("축구에 관심이 있는 회원을 검색")
+    void t11() {
+        List<SiteUser> userList = siteUserRepository.listQslByInterests("축구");
+
+        assertThat(userList.size()).isEqualTo(1);
+        assertThat(userList.get(0).getUsername()).isEqualTo("user1");
+    }
 }

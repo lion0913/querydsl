@@ -1,9 +1,6 @@
 package com.ll.exam.app3.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,9 +10,11 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Table
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class InterestKeyword {
 
     @Id
+    @EqualsAndHashCode.Include
     private String content;
 
 

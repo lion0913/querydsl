@@ -1,6 +1,7 @@
 package com.ll.exam.app3.repository;
 
 
+import com.ll.exam.app3.entity.QInterestKeyword;
 import com.ll.exam.app3.entity.SiteUser;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+import static com.ll.exam.app3.entity.QInterestKeyword.interestKeyword;
 import static com.ll.exam.app3.entity.QSiteUser.siteUser;
 
 @RequiredArgsConstructor
@@ -82,5 +84,18 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .fetchOne();
 
         return new PageImpl<>(content,pageable,count);
+    }
+
+    @Override
+    public List<SiteUser> listQslByInterests(String keyword) {
+
+        List<SiteUser> content = jpaQueryFactory
+                .select(siteUser)
+                .from(siteUser)
+                .join(siteUser.interests, interestKeyword)
+                .where(interestKeyword.content.eq(keyword))
+                .fetch();
+
+        return content;
     }
 }
