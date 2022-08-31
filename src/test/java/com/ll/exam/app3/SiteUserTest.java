@@ -141,7 +141,7 @@ public class SiteUserTest {
     @Test
     @DisplayName("no qsl")
     void t12() {
-        List<SiteUser> users = siteUserRepository.findByInterestKeyword_content("축구");
+        List<SiteUser> users = siteUserRepository.findByInterests_content("축구");
 
         assertThat(users.size()).isEqualTo(1);
         assertThat(users.get(0).getUsername()).isEqualTo("user1");

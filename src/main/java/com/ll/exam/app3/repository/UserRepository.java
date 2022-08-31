@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Repository
-public interface UserRepository extends JpaRepository<SiteUser, Integer>, UserRepositoryCustom {
+@Repository
+public interface UserRepository extends JpaRepository<SiteUser, Long>, UserRepositoryCustom {
 
-    List<SiteUser> findByInterestKeyword_content(String keyword);
+    List<SiteUser> findByInterests_content(String keyword);
 }
