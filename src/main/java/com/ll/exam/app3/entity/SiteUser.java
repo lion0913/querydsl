@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,7 +36,14 @@ public class SiteUser {
     private Set<InterestKeyword> interests = new HashSet<>();
 
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @Builder.Default
+    private Set<SiteUser> followers = new HashSet<>();
+
     public void addInterestKeywordContent(String keyword) {
         interests.add(new InterestKeyword(keyword));
+    }
+
+    public void addFollower(SiteUser u1) {
     }
 }

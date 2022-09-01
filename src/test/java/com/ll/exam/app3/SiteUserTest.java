@@ -139,11 +139,23 @@ public class SiteUserTest {
     }
 
     @Test
-    @DisplayName("no qsl")
+    @DisplayName("no qsl, jpa 기본기능으로 content 검색하기")
     void t12() {
         List<SiteUser> users = siteUserRepository.findByInterests_content("축구");
 
         assertThat(users.size()).isEqualTo(1);
         assertThat(users.get(0).getUsername()).isEqualTo("user1");
+    }
+
+    @Test
+    @DisplayName("u1이 u2를 팔로우")
+    void t13() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        SiteUser u2 = siteUserRepository.getQslUser(2L);
+
+        u2.addFollower(u1);
+
+        siteUserRepository.save(u2);
+
     }
 }
