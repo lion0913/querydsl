@@ -148,7 +148,6 @@ public class SiteUserTest {
 
     @Test
     @DisplayName("u1이 u2를 팔로우")
-    @Rollback(false)
     void t13() {
         SiteUser u1 = siteUserRepository.getQslUser(1L);
         SiteUser u2 = siteUserRepository.getQslUser(2L);
@@ -158,5 +157,17 @@ public class SiteUserTest {
 
         siteUserRepository.save(u2);
 
+    }
+
+    @Test
+    @DisplayName("본인이 본인을 팔로우 할 수 없다.")
+    @Rollback(false)
+    void t14() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        u1.follow(u1);
+
+        siteUserRepository.save(u1);
+
+        assertThat(u1.getFollowers().size()).isEqualTo(0);
     }
 }
