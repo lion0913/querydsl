@@ -24,7 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 // @Test + @Transactional 조합은 자동으로 롤백을 유발시킨다.
 @Transactional
 @ActiveProfiles("test")
-@Rollback(false)
 public class SiteUserTest {
     @Autowired
     UserRepository siteUserRepository;
@@ -149,11 +148,13 @@ public class SiteUserTest {
 
     @Test
     @DisplayName("u1이 u2를 팔로우")
+    @Rollback(false)
     void t13() {
         SiteUser u1 = siteUserRepository.getQslUser(1L);
         SiteUser u2 = siteUserRepository.getQslUser(2L);
 
-        u2.addFollower(u1);
+        //09.01 u1이 u2를 팔로우한다는 직관적인 함수로 변경
+        u1.follow(u2);
 
         siteUserRepository.save(u2);
 
