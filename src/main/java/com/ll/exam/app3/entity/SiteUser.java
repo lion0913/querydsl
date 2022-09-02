@@ -26,7 +26,7 @@ public class SiteUser {
     private String email;
 
     @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private Set<InterestKeyword> interests = new HashSet<>();
 
     @Builder.Default
@@ -39,6 +39,10 @@ public class SiteUser {
 
     public void addInterestKeywordContent(String keywordContent) {
         interests.add(new InterestKeyword(this, keywordContent));
+    }
+
+    public void removeInterestKeywordContent(String keywordContent) {
+        interests.remove(new InterestKeyword(this, keywordContent));
     }
 
     public void follow(SiteUser following) {

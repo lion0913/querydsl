@@ -189,4 +189,14 @@ public class SiteUserTest {
         u2.getFollowers();
         u2.getFollowings();
     }
+
+    @Test
+    @Rollback(false)
+    @DisplayName("농구에 흥미를 잃은 u1")
+    void t16() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+
+        u1.removeInterestKeywordContent("농구");
+        siteUserRepository.save(u1);
+    }
 }
