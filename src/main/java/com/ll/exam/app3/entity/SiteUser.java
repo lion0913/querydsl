@@ -3,49 +3,53 @@ package com.ll.exam.app3.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class SiteUser {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String username;
 
     private String password;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
 
-    //Builder.Default :build에서 hashset을 빼먹어도 빌드가 될 수 있게 해주는 어노테이션
-    @ManyToMany(cascade = CascadeType.ALL)
     @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<InterestKeyword> interests = new HashSet<>();
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @Builder.Default
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<SiteUser> followers = new HashSet<>();
 
-    public void addInterestKeywordContent(String keyword) {
-        interests.add(new InterestKeyword(keyword));
+    @Builder.Default
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<SiteUser> followings = new HashSet<>();
+
+    public void addInterestKeywordContent(String keywordContent) {
+        interests.add(new InterestKeyword(this, keywordContent));
     }
 
-    public void follow(SiteUser user) {
-        if(this == user) return;
-        if(user == null) return;
-        if(this.getId() == user.getId()) return;
+    public void follow(SiteUser following) {
+        if (this == following) return;
+        if (following == null) return;
+        if (this.getId() == following.getId()) return;
 
-        user.getFollowers().add(this);
+        // 유튜버(following)이 나(follower)를 구독자로 등록
+        following.getFollowers().add(this);
+
+        // 내(follower)가 유튜버(following)를 구독한다.
+        getFollowings().add(following);
     }
 }

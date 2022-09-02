@@ -170,4 +170,23 @@ public class SiteUserTest {
 
         assertThat(u1.getFollowers().size()).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("특정 회원의 팔로워들과 팔로잉들을 알 수 있어야 한다.")
+    @Rollback(false)
+    void t15() {
+        SiteUser u1 = siteUserRepository.getQslUser(1L);
+        SiteUser u2 = siteUserRepository.getQslUser(2L);
+
+        u1.follow(u2);
+
+        assertThat(u1.getFollowers().size()).isEqualTo(0);
+        assertThat(u2.getFollowers().size()).isEqualTo(1);
+
+        u1.getFollowers();
+        u1.getFollowings();
+
+        u2.getFollowers();
+        u2.getFollowings();
+    }
 }
