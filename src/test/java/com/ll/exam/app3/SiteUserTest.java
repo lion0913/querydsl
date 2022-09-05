@@ -1,6 +1,8 @@
 package com.ll.exam.app3;
 
+import com.ll.exam.app3.entity.InterestKeyword;
 import com.ll.exam.app3.entity.SiteUser;
+import com.ll.exam.app3.repository.InterestKeywordRepository;
 import com.ll.exam.app3.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +29,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SiteUserTest {
     @Autowired
     UserRepository siteUserRepository;
+
+    @Autowired
+    InterestKeywordRepository interestKeywordRepository;
 
     @Test
     public void createUserTest() {
@@ -183,11 +188,11 @@ public class SiteUserTest {
         assertThat(u1.getFollowers().size()).isEqualTo(0);
         assertThat(u2.getFollowers().size()).isEqualTo(1);
 
-        u1.getFollowers();
-        u1.getFollowings();
+        System.out.println(u1.getFollowers().size());
+        System.out.println(u1.getFollowings().size());
 
-        u2.getFollowers();
-        u2.getFollowings();
+        System.out.println(u2.getFollowers().size());
+        System.out.println(u2.getFollowings().size());
     }
 
     @Test
@@ -198,5 +203,14 @@ public class SiteUserTest {
 
         u1.removeInterestKeywordContent("농구");
         siteUserRepository.save(u1);
+    }
+
+    @Test
+    @DisplayName("내가 팔로우하고 있는 사람이 좋아하는 관심사")
+    void t17() {
+//        SiteUser u1 = siteUserRepository.getQslUser(1L);
+//        List<SiteUser> a = siteUserRepository.findQslFollowsById(1L);
+        List<InterestKeyword> b = interestKeywordRepository.getFollowingsOfKeywordContents(3L);
+
     }
 }

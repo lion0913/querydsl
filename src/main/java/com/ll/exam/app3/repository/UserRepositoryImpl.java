@@ -1,9 +1,12 @@
 package com.ll.exam.app3.repository;
 
 
+import com.ll.exam.app3.entity.InterestKeyword;
 import com.ll.exam.app3.entity.QInterestKeyword;
+import com.ll.exam.app3.entity.QSiteUser;
 import com.ll.exam.app3.entity.SiteUser;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Path;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -98,4 +101,30 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
         return content;
     }
+
+    @Override
+    public List<SiteUser> findQslFollowsById(long id) {
+//        from site_user_followers as f inner join site_user as u on f.followers_id = u.id where f.site_user_id = 3
+
+//        List<SiteUser> follows = jpaQueryFactory
+//                .select(siteUser)
+//                .from(siteUser.followers, followers)
+//                .join(siteUser)
+//                .where()
+        return null;
+    }
+
+//    @Override
+//    public List<InterestKeyword> getFollowingsOfKeywordContents(Long id) {
+//        QSiteUser siteUser2 = new QSiteUser("siteUser2");
+//
+//        return jpaQueryFactory
+//                .select(interestKeyword)
+//                .distinct()
+//                .from(interestKeyword)
+//                .innerJoin(interestKeyword.user, siteUser)
+//                .innerJoin(siteUser.followers, siteUser2)
+//                .where(siteUser2.id.eq(id))
+//                .fetch();
+//    }
 }

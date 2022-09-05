@@ -1,5 +1,6 @@
 package com.ll.exam.app3.repository;
 
+import com.ll.exam.app3.entity.InterestKeyword;
 import com.ll.exam.app3.entity.SiteUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,9 @@ public interface UserRepositoryCustom {
     Page<SiteUser> searchQsl(String user, Pageable pageable);
 
     List<SiteUser> listQslByInterests(String keyword);
+
+    List<SiteUser> findQslFollowsById(long id);
+
+//    List<InterestKeyword> getFollowingsOfKeywordContents(Long id);
+
 }
